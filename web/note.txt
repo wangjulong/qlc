@@ -1,0 +1,11 @@
+命令集：
+
+01 安装 dektrium/yii2-user
+composer require "dektrium/yii2-user:0.9.*@dev"
+
+02 数据库生成
+yii migrate/up --migrationPath=@vendor/dektrium/yii2-user/migrations
+
+03 修改 composer 的全局配置文件（推荐方式）
+composer config -g repositories.packagist composer http://packagist.phpcomposer.com
+
