@@ -50,6 +50,7 @@ $config = [
             'class' => 'dektrium\user\Module',
         ],
     ],
+    'language' => 'zh-CN',
     'params' => $params,
 ];
 
