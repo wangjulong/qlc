@@ -18,5 +18,6 @@ return array(
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'dektrium\\user\\' => array($vendorDir . '/dektrium/yii2-user'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
+    'Snoopy\\' => array($vendorDir . '/snoopy/snoopy/src'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
 );

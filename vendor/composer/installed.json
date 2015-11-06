@@ -1133,5 +1133,42 @@
             "yii2",
             "yii2-user"
         ]
+    },
+    {
+        "name": "snoopy/snoopy",
+        "version": "2.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PheRum/snoopy.git",
+            "reference": "660134bc1cfd52c00ded91928320dd4e775ff4d9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "http://packagist.phpcomposer.com/files/PheRum/snoopy/660134bc1cfd52c00ded91928320dd4e775ff4d9.zip",
+            "reference": "660134bc1cfd52c00ded91928320dd4e775ff4d9",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "time": "2015-07-25 20:02:14",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Snoopy\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPLv2"
+        ],
+        "authors": [
+            {
+                "name": "Andrei Zmievski"
+            }
+        ],
+        "description": "snoopy"
     }
 ]
