@@ -9,3 +9,6 @@ yii migrate/up --migrationPath=@vendor/dektrium/yii2-user/migrations
 03 修改 composer 的全局配置文件（推荐方式）
 composer config -g repositories.packagist composer http://packagist.phpcomposer.com
 
+04 migrate 命令
+yii migrate/create create_kjh_table 生成 migration 文件
+yii migrate 迁移数据库
