@@ -248,7 +248,7 @@ class KjhController extends Controller
 
         // 保证需要显示的期数不大于数据库里存在的数据的期数
         if ($num > Kjh::find()->count()) {
-            throw new Exception('需要显示的期数不能大于数据库里存在的数据的期数');
+            throw new Exception('需要显示的期数不能大于数据库里存在的数据的期数，只能是数字');
         }
 
         // 从数据库中取出数据 $num

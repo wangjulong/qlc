@@ -35,6 +35,7 @@ AppAsset::register($this);
     ]);
     $navItems = [
         ['label' => '首页', 'url' => ['/site/index']],
+        ['label' => '号码', 'url' => ['/kjh/show']],
         ['label' => '关于', 'url' => ['/site/about']],
         ['label' => '联系', 'url' => ['/site/contact']]
     ];

@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -12,6 +13,19 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="kjh-create">
     <div class="row">
         <table class="table table-bordered text-center table-hover table-condensed">
+            <div class="container">
+                <div class="row" style="width:30%">
+                    <form action="" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="期数" name="num">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">自定义查询期数</button>
+                        </span>
+                        </div>
+                    </form>
+                </div><!-- /.row -->
+            </div>
+            <!--/.container-->
             <thead>
             <tr>
                 <th style="text-align:center">期号</th>
@@ -56,6 +70,4 @@ $this->params['breadcrumbs'][] = $this->title;
         </table>
     </div>
     <!--/.row-->
-
-
 </div>
