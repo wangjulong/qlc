@@ -6,6 +6,7 @@ use Snoopy\Snoopy;
 use Yii;
 use app\models\Kjh;
 use app\models\KjhSearch;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -120,7 +121,9 @@ class KjhController extends Controller
         }
     }
 
-
+    /**
+     * 开奖号码整体更新
+     */
     public function actionUpdates()
     {
         /* 通过百度彩票网得到开奖数据(二维数组)
@@ -139,21 +142,37 @@ class KjhController extends Controller
         $model = $this->getKjhBD();
         Kjh::deleteAll();
 
-        foreach($model as $rows){
+        foreach ($model as $rows) {
             $model = new Kjh();
-            $model->qh=$rows[0];
-            $model->n1=$rows[1];
-            $model->n2=$rows[2];
-            $model->n3=$rows[3];
-            $model->n4=$rows[4];
-            $model->n5=$rows[5];
-            $model->n6=$rows[6];
-            $model->n7=$rows[7];
-            $model->n8=$rows[8];
+            $model->qh = $rows[0];
+            $model->n1 = $rows[1];
+            $model->n2 = $rows[2];
+            $model->n3 = $rows[3];
+            $model->n4 = $rows[4];
+            $model->n5 = $rows[5];
+            $model->n6 = $rows[6];
+            $model->n7 = $rows[7];
+            $model->n8 = $rows[8];
             $model->save();
         }
     }
 
+
+    /**
+     * @return array 开奖号码二维数组
+     * 通过百度彩票网得到开奖数据(二维数组)
+     * 2015101 =>
+     * array(size = 9)
+     * 0 => string '2015101' (length = 7)
+     * 1 => string '07' (length = 2)
+     * 2 => string '12' (length = 2)
+     * 3 => string '16' (length = 2)
+     * 4 => string '18' (length = 2)
+     * 5 => string '22' (length = 2)
+     * 6 => string '23' (length = 2)
+     * 7 => string '29' (length = 2)
+     * 8 => string '06' (length = 2)
+     */
     protected function getKjhBD()
     {
         // 保存结果的二维数组
@@ -213,5 +232,69 @@ class KjhController extends Controller
         }
         //返回结果数组
         return $numbers;
+    }
+
+    /**
+     * 展示开奖号码表格
+     */
+    public function actionShow()
+    {
+
+        // 是否包含需要显示的期数,没有在赋值为15
+        $num = Yii::$app->request->get('num');
+        if ($num == null) {
+            $num = 15;
+        }
+
+        // 保证需要显示的期数不大于数据库里存在的数据的期数
+        if ($num > Kjh::find()->count()) {
+            throw new Exception('需要显示的期数不能大于数据库里存在的数据的期数');
+        }
+
+        // 从数据库中取出数据 $num
+        $temp = Kjh::find()->limit($num)->orderBy('qh DESC')->all();
+        $temp2 = array_reverse($temp);
+
+        $model = $this->numbersFormat($temp2);
+
+        return $this->render('show', ['model' => $model]);
+    }
+
+    protected function numbersFormat($numbers)
+    {
+        $views = array();
+
+        // Step 2 循环数组，组合字符串
+        foreach ($numbers as $number) {
+
+            // 字符串头部
+            $temp = '<tr>' . '<td>' . $number['qh'] . '</td>';
+
+            // 30个单元格
+            $n = array();
+            for ($i = 1; $i < 31; $i++) {
+                $n[$i] = '<td></td>';
+            }
+
+
+            // 循环当前期的数组-----第二维度
+            foreach ($number as $n07) {
+                // 单个的开奖号码排列
+                $n[intval($n07)] = '<td><span>' . $n07 . '</span></td>';
+
+            }
+
+            // 组合字符串
+            for ($i = 1; $i < 31; $i++) {
+                $temp .= $n[$i];
+            }
+            $temp .= '</tr>';
+
+            // 加入数组
+            $views[$number['qh']] = $temp;
+        }
+
+        // 返回数组
+        return $views;
     }
 }
