@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use Snoopy\Snoopy;
 use Yii;
 use app\models\Kjh;
 use app\models\KjhSearch;
@@ -126,23 +125,11 @@ class KjhController extends Controller
      */
     public function actionUpdates()
     {
-        /* 通过百度彩票网得到开奖数据(二维数组)
-        2015101 =>
-            array(size = 9)
-                0 => string '2015101' (length = 7)
-                1 => string '07' (length = 2)
-                2 => string '12' (length = 2)
-                3 => string '16' (length = 2)
-                4 => string '18' (length = 2)
-                5 => string '22' (length = 2)
-                6 => string '23' (length = 2)
-                7 => string '29' (length = 2)
-                8 => string '06' (length = 2)
-        */
-        $model = $this->getKjhBD();
+        $model = new Kjh();
+        $result = $model->getKjhBD();
         Kjh::deleteAll();
 
-        foreach ($model as $rows) {
+        foreach ($result as $rows) {
             $model = new Kjh();
             $model->qh = $rows[0];
             $model->n1 = $rows[1];
@@ -155,85 +142,10 @@ class KjhController extends Controller
             $model->n8 = $rows[8];
             $model->save();
         }
+
+        // 成功自动跳转到走势图页面
+        $this->redirect('/kjh/show');
     }
-
-
-    /**
-     * @return array 开奖号码二维数组
-     * 通过百度彩票网得到开奖数据(二维数组)
-     * 2015101 =>
-     * array(size = 9)
-     * 0 => string '2015101' (length = 7)
-     * 1 => string '07' (length = 2)
-     * 2 => string '12' (length = 2)
-     * 3 => string '16' (length = 2)
-     * 4 => string '18' (length = 2)
-     * 5 => string '22' (length = 2)
-     * 6 => string '23' (length = 2)
-     * 7 => string '29' (length = 2)
-     * 8 => string '06' (length = 2)
-     */
-    protected function getKjhBD()
-    {
-        // 保存结果的二维数组
-        $numbers = array();
-        $snoopy = new Snoopy();
-
-        // 得到网页内容
-        $strBD = "http://trend.baidu.lecai.com/qlc/baseTrend.action?recentPhase=30&onlyBody=true";
-        $snoopy->fetch($strBD);
-
-        // 取出网页内容到变量中
-        $result = $snoopy->results;
-
-        // 把结果转换成数组
-        $separator = '<td class="chart_table_td">';
-        $arr = explode($separator, $result);
-
-        // 遍历数组，并截取需要的部分
-        foreach ($arr as $value) {
-
-            // 截取字符串功能
-            $pattern = '/^\d{7}/';
-
-            if (preg_match($pattern, $value)) {
-
-                // 临时数组
-                $temps = array();
-                // 期号位于数组的开始部分
-                $temps['qh'] = substr($value, 0, 7);
-
-                // 根据特别号码的css类名查找特别号码的位置
-                $special = "qlc_te";
-                $len = strrpos($value, $special);
-                $temps['n8'] = substr($value, $len + 8, 2);
-
-                // 把字符串分割按照行成数组
-                $row = explode('</td>', $value);
-
-                // 循环数组查找七个号码
-                foreach ($row as $td) {
-                    if ($reds = strrpos($td, 'red_ball')) {
-                        $temps[] = substr($td, $reds + 10, 2);
-                    }
-                }
-                $numbers[$temps['qh']] = array(
-                    $temps['qh'],
-                    $temps[0],
-                    $temps[1],
-                    $temps[2],
-                    $temps[3],
-                    $temps[4],
-                    $temps[5],
-                    $temps[6],
-                    $temps['n8']
-                );
-            }
-        }
-        //返回结果数组
-        return $numbers;
-    }
-
     /**
      * 展示开奖号码表格
      */

@@ -14,12 +14,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <table class="table table-bordered text-center table-hover table-condensed">
             <div class="container">
-                <div class="row" style="width:30%">
+                <div class="row" style="width:35%">
                     <form action="" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="期数" name="num">
                         <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit">自定义查询期数</button>
+                            <button class="btn btn-success" type="submit">查询</button>
                         </span>
                         </div>
                     </form>
