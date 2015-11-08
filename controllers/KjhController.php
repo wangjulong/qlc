@@ -272,20 +272,22 @@ class KjhController extends Controller
 
             // 30个单元格
             $n = array();
-            for ($i = 1; $i < 31; $i++) {
+            for ($i = 1; $i <= 31; $i++) {
                 $n[$i] = '<td></td>';
             }
 
-
-            // 循环当前期的数组-----第二维度
-            foreach ($number as $n07) {
-                // 单个的开奖号码排列
-                $n[intval($n07)] = '<td><span>' . $n07 . '</span></td>';
-
-            }
+            // 添加开奖号码到数组中
+            $n[$number['n1']] = '<td><span>' . $number['n1'] . '</span></td>';
+            $n[$number['n2']] = '<td><span>' . $number['n2'] . '</span></td>';
+            $n[$number['n3']] = '<td><span>' . $number['n3'] . '</span></td>';
+            $n[$number['n4']] = '<td><span>' . $number['n4'] . '</span></td>';
+            $n[$number['n5']] = '<td><span>' . $number['n5'] . '</span></td>';
+            $n[$number['n6']] = '<td><span>' . $number['n6'] . '</span></td>';
+            $n[$number['n7']] = '<td><span>' . $number['n7'] . '</span></td>';
+            $n[31] = '<td><span>' . $number['n8'] . '</span></td>';
 
             // 组合字符串
-            for ($i = 1; $i < 31; $i++) {
+            for ($i = 1; $i <= 31; $i++) {
                 $temp .= $n[$i];
             }
             $temp .= '</tr>';

@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <thead>
             <tr>
                 <th style="text-align:center">期号</th>
-                <th style="text-align:center">00</th>
                 <th style="text-align:center">01</th>
+                <th style="text-align:center">02</th>
                 <th style="text-align:center">03</th>
                 <th style="text-align:center">04</th>
                 <th style="text-align:center">05</th>
@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th style="text-align:center">28</th>
                 <th style="text-align:center">29</th>
                 <th style="text-align:center">30</th>
+                <th style="text-align:center">特别号码</th>
             </tr>
             </thead>
             <tbody>
