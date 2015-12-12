@@ -18,9 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <form action="" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="期数" name="num">
-                        <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit">查询</button>
-                        </span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit">查询</button>
+                            </span>
+                            <span class="input-group-btn">
+                                <?= Html::a('添加开奖号码', ['create'], ['class' => 'btn btn-success']) ?>
+                            </span>
                         </div>
                     </form>
                 </div><!-- /.row -->
